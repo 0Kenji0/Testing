@@ -13,10 +13,6 @@ $userId = $query->validate($_SESSION['id']);
 $product = $query->select('products', '*', "WHERE id = $productId AND seller_id = $userId");
 if (empty($product)) {
     header("Location: ./");
-    $name = $query->validate($_POST['name']);
-    $description = $query->validate($_POST['description']);
-    $price_current = $query->validate($_POST['price_current']);
-    $category_id = $query->validate($_POST['category_id']);
     exit();
 }
 $product = $product[0];
@@ -25,7 +21,10 @@ $product = $product[0];
 $categories = $query->getCategories();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    $name = $query->validate($_POST['name']);
+    $description = $query->validate($_POST['description']);
+    $price_current = $query->validate($_POST['price_current']);
+    $category_id = $query->validate($_POST['category_id']);
 
     $data = [
         'name' => $name,
